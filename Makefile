@@ -1,4 +1,4 @@
-CXX := clang++
+CXX := g++
 
 SRC_MAIN = src/main.cpp
 
@@ -9,12 +9,15 @@ OBJDIR = obj
 OBJ = $(SRC:%.cpp=$(OBJDIR)/%.o)
 OBJ_MAIN = $(SRC_MAIN:%.cpp=$(OBJDIR)/%.o)
 
-NAME = myftp
+NAME = raytracer
 
 INCLUDE = -Isrc -I/usr/local/include
 
-CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++20 -stdlib=libstdc++
+CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++20
+
 CFLAGS_DEBUGS = -fanalyzer -g
+
+SFML_FLAGS = -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 all: $(NAME)
 
@@ -23,7 +26,7 @@ $(OBJDIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ_MAIN) $(OBJ)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ $^
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ $^ $(SFML_FLAGS)
 
 clean:
 	rm -rf $(OBJDIR)
