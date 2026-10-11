@@ -1,5 +1,9 @@
 CXX := g++
 
+SRC += src/raytracer.cpp
+SRC += src/sphere.cpp
+SRC += src/ray.cpp
+
 SRC_MAIN = src/main.cpp
 
 SRC_TEST =

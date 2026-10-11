@@ -5,7 +5,8 @@
 class raytracer {
     ray _ray;
     sphere _sphere;
+    bool _calcul = true;
 public:
+    raytracer();
     void run();
-    sf::Vector3f normalizeRay(sf::Vector3f ray);
 };
