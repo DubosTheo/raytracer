@@ -30,7 +30,7 @@ $(OBJDIR)/%.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJ_MAIN) $(OBJ)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ $^ $(SFML_FLAGS)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ $^ $(SFML_FLAGS) -lconfig++
 
 clean:
 	rm -rf $(OBJDIR)

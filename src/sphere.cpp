@@ -3,7 +3,7 @@
 #include <cmath>
 #include <SFML/Graphics/Texture.hpp>
 
-sphere::sphere() : _position({3.0f, 0.0f, -20.0f}), _radius(2), _sprite(_texture)
+sphere::sphere() : _position({-2.0f, 0.0f, -50.0f}), _radius(3), _sprite(_texture)
 {
     _image.resize({800, 600});
 }
