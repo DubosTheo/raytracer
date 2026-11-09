@@ -1,13 +1,11 @@
 #pragma once
 #include <SFML/System/Vector3.hpp>
-#include "sphere.hpp"
-#include "ray.hpp"
+#include "Shapes/sphere.hpp"
 #include "Camera.hpp"
 
 class raytracer {
     Camera _camera;
-    ray _ray;
-    sphere _sphere;
+    Ray _ray;
     bool _calcul = true;
 public:
     raytracer();

@@ -23,7 +23,7 @@ float sphere::dot(sf::Vector3f vector1, sf::Vector3f vector2)
 }
 
 
-bool sphere::isIntersect(ray &ray)
+bool sphere::isIntersect(Ray &ray)
 {
     sf::Vector3f direction = normalize(ray.getDirection());
     sf::Vector3f origin = ray.getOrigin();

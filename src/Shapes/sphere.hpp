@@ -4,9 +4,10 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector3.hpp>
 
-#include "ray.hpp"
+#include "Ishape.hpp"
+#include "../ray.hpp"
 
-class sphere {
+class sphere : public IShapes {
 private:
     sf::Vector3f _position;
     float _radius;
@@ -16,7 +17,7 @@ private:
 public:
     sphere();
     void setPosition(sf::Vector3f position) {_position = position;}
-    bool isIntersect(ray &ray);
+    bool isIntersect(Ray &ray) override;
     void setPixel(sf::Vector2u coords, sf::Color color);
     sf::Vector3f normalize(sf::Vector3f vector);
     float dot(sf::Vector3f vector1, sf::Vector3f vector2);
