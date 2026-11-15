@@ -1,10 +1,13 @@
 #pragma once
+#include <libconfig.h++>
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/System/Vector3.hpp>
 
 #include "Ishape.hpp"
+
+using namespace libconfig;
 
 class sphere : public IShapes {
 private:
@@ -14,7 +17,7 @@ private:
     sf::Texture _texture;
     sf::Sprite _sprite;
 public:
-    sphere();
+    explicit sphere(const Setting &s);
     void setPosition(sf::Vector3f position) {_position = position;}
     bool isIntersect(Ray &ray) override;
     void setPixel(sf::Vector2u coords, sf::Color color);

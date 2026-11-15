@@ -5,6 +5,7 @@ SRC += src/Shapes/sphere.cpp
 SRC += src/Ray/Ray.cpp
 SRC += src/Scene/Scene.cpp
 SRC += src/Vec/Vec3.cpp
+SRC += src/Factory/ShapeFactory.cpp
 
 
 SRC_MAIN = src/main.cpp

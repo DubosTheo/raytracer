@@ -7,6 +7,7 @@
 
 #include "../Shapes/Ishape.hpp"
 #include "Camera/Camera.hpp"
+#include "Factory/ShapeFactory.hpp"
 #include "Object/Object.hpp"
 
 using namespace libconfig;
@@ -20,4 +21,5 @@ public:
 private:
     std::vector<Object> _objects;
     Camera _camera;
+    ShapeFactory _shapeFactory;
 };
