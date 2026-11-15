@@ -7,10 +7,11 @@ void Scene::readCamera(const Setting &s)
 {
     const Setting &c = s["camera"];
 
-    std::cout << "passe" << std::endl;
     _camera.setPos(c["position"]["x"], c["position.y"]["y"], c["position.z"]["z"]);
-    Vec3 pos = _camera.getPos();
-    std::cout << "pos x : " << pos.getX() << ", pos y : " << pos.getY() << ", pos z : " << pos.getZ();
+    _camera.setRotation(c["rotation"]["x"], c["rotation"]["y"], c["rotation"]["z"]);
+    _camera.setFov(c["fov"]);
+    _camera.setResX(c["resolution"]["width"]);
+    _camera.setResY(c["resolution"]["height"]);
 }
 
 
