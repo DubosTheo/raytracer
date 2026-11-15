@@ -1,14 +1,14 @@
 #pragma once
 #include <SFML/System/Vector3.hpp>
 #include "Shapes/sphere.hpp"
-#include "Camera.hpp"
+#include "Camera/Camera.hpp"
+#include "Scene/Scene.hpp"
 
 class raytracer {
-    Camera _camera;
-    Ray _ray;
+    Scene _scene;
     bool _calcul = true;
 public:
-    raytracer();
+    explicit raytracer(std::string pathfile);
     bool init();
     void run();
 };

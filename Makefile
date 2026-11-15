@@ -1,8 +1,11 @@
 CXX := g++
 
 SRC += src/raytracer.cpp
-SRC += src/sphere.cpp
+SRC += src/Shapes/sphere.cpp
 SRC += src/Ray/Ray.cpp
+SRC += src/Scene/Scene.cpp
+SRC += src/Vec/Vec3.cpp
+
 
 SRC_MAIN = src/main.cpp
 

@@ -5,7 +5,6 @@
 #include <SFML/System/Vector3.hpp>
 
 #include "Ishape.hpp"
-#include "../ray.hpp"
 
 class sphere : public IShapes {
 private:

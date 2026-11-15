@@ -2,13 +2,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector3.hpp>
 #include <cmath>
+#include <utility>
 #include <vector>
 #include <libconfig.h++>
 #include <iostream>
 
 using namespace libconfig;
 
-raytracer::raytracer() : _camera()
+raytracer::raytracer(std::string pathfile) : _scene(std::move(pathfile))
 {
 }
 
@@ -41,8 +42,6 @@ bool raytracer::init()
 
 void raytracer::run()
 {
-    std::cout << _camera.getResX() << std::endl;
-    std::cout << _camera.getResY() << std::endl;
    //float height = 1080;
    //float width = 1920;
    //sf::RenderWindow window(sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), "Raytracer");

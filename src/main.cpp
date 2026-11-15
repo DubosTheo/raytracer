@@ -2,10 +2,12 @@
 
 #include "raytracer.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
+    if (argc < 2)
+        return EXIT_FAILURE;
     try {
-        raytracer raytracer;
+        raytracer raytracer(argv[1]);
         if (!raytracer.init())
             return EXIT_FAILURE;
         raytracer.run();
