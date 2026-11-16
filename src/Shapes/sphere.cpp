@@ -3,32 +3,46 @@
 #include <cmath>
 #include <SFML/Graphics/Texture.hpp>
 
-sphere::sphere(const Setting &s) : _sprite(_texture)
+#include "Vec/Vec3.hpp"
+
+sphere::sphere(const Setting &s) : _position(0, 0, 0), _sprite(_texture)
 {
+    _position.setX(s["x"]);
+    _position.setY(s["y"]);
+    _position.setZ(s["z"]);
+    _radius = s["r"];
+    const Setting &color = s["color"];
+    int r = color["r"];
+    int g = color["g"];
+    int b = color["b"];
+    _color.r = r;
+    _color.b = b;
+    _color.g = g;
     _image.resize({800, 600});
 }
 
 
-sf::Vector3f sphere::normalize(sf::Vector3f vector)
+Vec3 sphere::normalize(Vec3 vector)
 {
-    double lenght = std::sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+    Vec3 vect(0, 0, 0);
+    double lenght = std::sqrt(vector.getX() * vector.getX() + vector.getY() * vector.getY() + vector.getZ() * vector.getZ());
     if (lenght == 0)
-        return sf::Vector3f(0.0f, 0.0f, 0.0f);
-    return sf::Vector3f(vector.x / lenght, vector.y / lenght, vector.z / lenght);
+        return vect;
+    return Vec3(vector.getX() / lenght, vector.getY() / lenght, vector.getZ() / lenght);
 }
 
-float sphere::dot(sf::Vector3f vector1, sf::Vector3f vector2)
+float sphere::dot(Vec3 vector1, Vec3 vector2)
 {
-    return vector1.x * vector2.x + vector1.y * vector2.y + vector1.z * vector2.z;
+    return vector1.getX() * vector2.getX() + vector1.getY() * vector2.getY() + vector1.getZ() * vector2.getZ();
 }
 
 
 bool sphere::isIntersect(Ray &ray)
 {
-    sf::Vector3f direction = normalize(ray.getDirection());
-    sf::Vector3f origin = ray.getOrigin();
+    Vec3 direction = normalize(ray.getDirection());
+    Vec3 origin = ray.getOrigin();
     float a = dot(direction, direction);
-    sf::Vector3f OrigintoCenter = origin - _position;
+    Vec3 OrigintoCenter = origin - _position;
     float b = 2 * dot(direction, OrigintoCenter);
     float c = dot(OrigintoCenter, OrigintoCenter) - _radius * _radius;
     float delta = b * b - (4 * a * c);
@@ -53,7 +67,7 @@ void sphere::setSprite(const sf::Texture &texture)
 }
 
 
-void sphere::setPixel(sf::Vector2u coords, sf::Color color)
+void sphere::setPixel(Vec2 coords, sf::Color color)
 {
-    _image.setPixel(coords, color);
+    _image.setPixel({static_cast<unsigned int>(coords.getX()), static_cast<unsigned int>(coords.getY())}, color);
 }

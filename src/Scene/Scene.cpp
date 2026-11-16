@@ -30,7 +30,7 @@ void Scene::readObjects(const Setting &s)
     }
 }
 
-Scene::Scene(std::string pathFile)
+Scene::Scene(std::string pathFile) : _camera()
 {
     if (pathFile.empty())
         throw std::runtime_error("Invalid Pathfile\n");

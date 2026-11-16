@@ -16,6 +16,8 @@ public:
     explicit Scene(std::string pathfile);
     void readObjects(const Setting &s);
     void readCamera(const Setting &s);
+    Camera getCamera() {return _camera;}
+    std::vector<std::unique_ptr<Object>> getObject() {return std::move(_objects);}
 private:
     std::vector<std::unique_ptr<Object>> _objects;
     Camera _camera;

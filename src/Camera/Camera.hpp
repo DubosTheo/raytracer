@@ -9,6 +9,8 @@ private:
     Vec3 _pos;
     double _fov = 110;
 public:
+    Camera();
+    ~Camera();
     void setResX(const unsigned int resX) {_resX = resX;}
     [[nodiscard]] unsigned int getResX() const {return _resX;}
     void setResY(const unsigned int resY) {_resY = resY;}

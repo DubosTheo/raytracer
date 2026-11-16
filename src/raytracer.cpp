@@ -42,43 +42,43 @@ bool raytracer::init()
 
 void raytracer::run()
 {
-   //float height = 1080;
-   //float width = 1920;
-   //sf::RenderWindow window(sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), "Raytracer");
-   //float ar = width / height;
-   //float fovRadiant = (60 * (std::numbers::pi / 180)) / 2;
-   //float factor = std::tan(fovRadiant / 2);
-   //sf::Texture texture;
-   //if (!texture.resize({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}))
-   //    return;
-
-   //while (window.isOpen()) {
-   //    while (const std::optional event = window.pollEvent()) {
-   //        if (event->is<sf::Event::Closed>())
-   //            window.close();
-   //    }
-   //    window.clear(sf::Color::Black);
-   //    if (_calcul == true) {
-   //        for (int x = 0; x < width; ++x) {
-   //            for (int y = 0; y < height; ++y) {
-   //                float normX = (x + 0.5f) / width * 2 - 1;
-   //                float normY = 1 - ((y + 0.5) / height) * 2;
-   //                float aspectX = normX * ar;
-   //                float finalX = aspectX * factor;
-   //                float finalY = normY * factor;
-   //                _ray.setDirection(sf::Vector3f{finalX, finalY, -1});
-   //                if (_sphere.isIntersect(_ray)) {
-   //                    sf::Vector2u coords{static_cast<unsigned int>(x), static_cast<unsigned int>(y)};
-   //                    _sphere.setPixel(coords, sf::Color::Red);
-   //                }
-   //            }
-   //        }
-   //        if (!_sphere.getTexture().loadFromImage(_sphere.getImage()))
-   //            return;
-   //        _sphere.setSprite(_sphere.getTexture());
-   //        _calcul = false;
-   //    }
-   //    window.draw(_sphere.getSprite());
-   //    window.display();
-   //}
+    int width = _scene.getCamera().getResX();
+    int height = _scene.getCamera().getResY();
+    Ray ray;
+   sf::RenderWindow window(sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), "Raytracer");
+   float ar = width / height;
+   float fovRadiant = (60 * (std::numbers::pi / 180)) / 2;
+   float factor = std::tan(fovRadiant / 2);
+   sf::Texture texture;
+   if (!texture.resize({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}))
+       return;
+   while (window.isOpen()) {
+       while (const std::optional event = window.pollEvent()) {
+           if (event->is<sf::Event::Closed>())
+               window.close();
+       }
+       window.clear(sf::Color::Black);
+       if (_calcul == true) {
+           for (int x = 0; x < width; ++x) {
+               for (int y = 0; y < height; ++y) {
+                   float normX = (x + 0.5f) / width * 2 - 1;
+                   float normY = 1 - ((y + 0.5) / height) * 2;
+                   float aspectX = normX * ar;
+                   float finalX = aspectX * factor;
+                   float finalY = normY * factor;
+                   ray.setDirection(Vec3{finalX, finalY, -1});
+                   if (_scene.getObject()isIntersect(_ray)) {
+                       sf::Vector2u coords{static_cast<unsigned int>(x), static_cast<unsigned int>(y)};
+                       sphere.setPixel(coords, sf::Color::Red);
+                   }
+               }
+           }
+           if (!_sphere.getTexture().loadFromImage(_sphere.getImage()))
+               return;
+           _sphere.setSprite(_sphere.getTexture());
+           _calcul = false;
+       }
+       window.draw(_sphere.getSprite());
+       window.display();
+   }
 }
