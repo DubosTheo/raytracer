@@ -3,7 +3,7 @@
 #include <cmath>
 #include <SFML/Graphics/Texture.hpp>
 
-sphere::sphere(const Setting &s)
+sphere::sphere(const Setting &s) : _sprite(_texture)
 {
     _image.resize({800, 600});
 }

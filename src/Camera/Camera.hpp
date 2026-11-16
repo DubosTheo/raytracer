@@ -15,7 +15,7 @@ public:
     [[nodiscard]] unsigned int getResY() const {return _resY;}
     void setPos(float x, float y, float z) {_pos.setX(x); _pos.setY(y); _pos.setZ(z);}
     [[nodiscard]] Vec3 getPos() const {return _pos;}
-    void setFov(const int fov) {_fov = fov;}
+    void setFov(const double fov) {_fov = fov;}
     [[nodiscard]] double getFov() const {return _fov;}
     void setRotation(float x, float y, float z) {_rotation.setX(x); _rotation.setY(y); _rotation.setZ(z);}
     [[nodiscard]] Vec3 getRotation() const {return _rotation;}

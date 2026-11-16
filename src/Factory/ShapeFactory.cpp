@@ -4,7 +4,7 @@
 
 ShapeFactory::ShapeFactory()
 {
-    _shapes["sphere"] = [](const Setting& s) {
+    _shapes["spheres"] = [](const Setting& s) {
         return std::make_unique<sphere>(s);
     };
 }

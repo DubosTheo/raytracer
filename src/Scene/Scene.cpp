@@ -21,6 +21,12 @@ void Scene::readObjects(const Setting &s)
     size_t size = o.getLength();
 
     for (size_t i = 0; i < size; i++) {
+        const Setting &oTmp = o[static_cast<int>(i)];
+        size_t sizeTmp = oTmp.getLength();
+        std::string name = oTmp.getName();
+        for (size_t j = 0; j < sizeTmp; j++) {
+            _objects.push_back(_factory.getObject(name, oTmp));
+        }
     }
 }
 

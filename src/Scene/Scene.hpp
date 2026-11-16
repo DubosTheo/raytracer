@@ -5,21 +5,19 @@
 #include <string>
 #include <vector>
 
-#include "../Shapes/Ishape.hpp"
-#include "Camera/Camera.hpp"
-#include "Factory/ShapeFactory.hpp"
-#include "Object/Object.hpp"
+#include "../Camera/Camera.hpp"
+#include "../Factory/Factory.hpp"
+#include "../Object/Object.hpp"
 
 using namespace libconfig;
-
 
 class Scene {
 public:
     explicit Scene(std::string pathfile);
-    static void readObjects(const Setting &s);
+    void readObjects(const Setting &s);
     void readCamera(const Setting &s);
 private:
-    std::vector<Object> _objects;
+    std::vector<std::unique_ptr<Object>> _objects;
     Camera _camera;
-    ShapeFactory _shapeFactory;
+    Factory _factory;
 };
