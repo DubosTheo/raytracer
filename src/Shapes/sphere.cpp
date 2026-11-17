@@ -42,19 +42,19 @@ bool sphere::isIntersect(Ray &ray)
     Vec3 origin = ray.getOrigin();
     float a = dot(direction, direction);
     Vec3 OrigintoCenter = origin - _position;
-    float b = 2 * dot(direction, OrigintoCenter);
-    float c = dot(OrigintoCenter, OrigintoCenter) - _radius * _radius;
-    float delta = b * b - (4 * a * c);
+    float b = 2.0f * dot(direction, OrigintoCenter);
+    float c = dot(OrigintoCenter, OrigintoCenter) - (_radius * _radius);
+    float delta = (b * b) - (4.0f * a * c);
     if (delta < 0)
         return false;
     if (delta == 0) {
-        float t = -(b / (2 * a));
+        float t = -b / (2.0f * a);
         if (t > 0.001f)
             return true;
         return false;
     }
-    float t0 = (-b + sqrt(delta)) / (2 * a);
-    float t1 = (-b - sqrt(delta)) / (2 * a);
+    float t0 = (-b + std::sqrt(delta)) / (2.0f * a);
+    float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
     if (t0 > 0.001f || t1 > 0.001f)
         return true;
     return false;
@@ -62,7 +62,7 @@ bool sphere::isIntersect(Ray &ray)
 
 void sphere::setSprite(const sf::Texture &texture)
 {
-    _sprite.setTexture(texture,true);
+    _sprite.setTexture(texture, true);
 }
 
 
