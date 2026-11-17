@@ -16,7 +16,7 @@ sphere::sphere(const Setting &s) : _position(0, 0, 0), _sprite(_texture)
     int r = color["r"];
     int g = color["g"];
     int b = color["b"];
-    _color = sf::Color::Red;
+    _color = sf::Color(r, g, b);
     _image.resize({800, 600});
 }
 
@@ -49,14 +49,22 @@ bool sphere::isIntersect(Ray &ray)
         return false;
     if (delta == 0) {
         float t = -b / (2.0f * a);
-        if (t > 0.001f)
+        if (t > 0.001f) {
+            ray.setDistance(t);
             return true;
+        }
         return false;
     }
     float t0 = (-b + std::sqrt(delta)) / (2.0f * a);
     float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
-    if (t0 > 0.001f || t1 > 0.001f)
+    if (t0 > 0.001f && t1 < 0.001f) {
+        ray.setDistance(t1);
         return true;
+    }
+    if (t0 > 0.001f) {
+        ray.setDistance(t0);
+        return true;
+    }
     return false;
 }
 
