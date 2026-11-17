@@ -15,28 +15,7 @@ raytracer::raytracer(std::string pathfile) : _scene(std::move(pathfile))
 
 bool raytracer::init()
 {
-    Config cfg;
-
-    try {
-    } catch(const FileIOException &fex) {
-        std::cerr << "Erreur : Impossible de lire le fichier scene.cfg." << std::endl;
-        return EXIT_FAILURE;
-    } catch(const ParseException &pex) {
-        std::cerr << "Erreur de syntaxe à la ligne " << pex.getLine() << " : " << pex.getError() << std::endl;
-        return EXIT_FAILURE;
-    }
-
-    try {
-        const Setting &s = cfg.getRoot();
-        int nb_content = 0;
-    } catch(const SettingNotFoundException &nfex) {
-        std::cerr << nfex.what() << std::endl;
-        return EXIT_FAILURE;
-    } catch(const SettingTypeException &stex) {
-        std::cerr << stex.what() << std::endl;
-        return EXIT_FAILURE;
-    }
-    return EXIT_SUCCESS;
+    return true;
 }
 
 
@@ -44,6 +23,7 @@ void raytracer::run()
 {
     int width = _scene.getCamera().getResX();
     int height = _scene.getCamera().getResY();
+    std::vector<std::unique_ptr<Object>> objects = _scene.getObject();
     Ray ray;
    sf::RenderWindow window(sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), "Raytracer");
    float ar = width / height;
@@ -61,24 +41,30 @@ void raytracer::run()
        if (_calcul == true) {
            for (int x = 0; x < width; ++x) {
                for (int y = 0; y < height; ++y) {
-                   float normX = (x + 0.5f) / width * 2 - 1;
+                   float normX = (x + 0.5f) / static_cast<float>(width) * 2 - 1;
                    float normY = 1 - ((y + 0.5) / height) * 2;
                    float aspectX = normX * ar;
                    float finalX = aspectX * factor;
                    float finalY = normY * factor;
                    ray.setDirection(Vec3{finalX, finalY, -1});
-                   if (_scene.getObject()isIntersect(_ray)) {
-                       sf::Vector2u coords{static_cast<unsigned int>(x), static_cast<unsigned int>(y)};
-                       sphere.setPixel(coords, sf::Color::Red);
+                   for (const auto &it :objects) {
+                       if (it->getShape().isIntersect(ray)) {
+                           Vec2 coords(static_cast<float>(x), static_cast<float>(y));
+                           it->getShape().setPixel(coords, it->getShape().getColor());
+                       }
                    }
                }
            }
-           if (!_sphere.getTexture().loadFromImage(_sphere.getImage()))
-               return;
-           _sphere.setSprite(_sphere.getTexture());
+           for (const auto &it : objects) {
+               if (!it->getShape().setTexture(it->getShape().getImage()))
+                   throw std::runtime_error("Can't set Texture\n");
+               it->getShape().setSprite(it->getShape().getTexture());
+           }
            _calcul = false;
        }
-       window.draw(_sphere.getSprite());
-       window.display();
+       for (const auto &it : objects) {
+           window.draw(it->getShape().getSprite());
+           window.display();
+       }
    }
 }

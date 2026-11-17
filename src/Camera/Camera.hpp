@@ -5,12 +5,12 @@ class Camera {
 private:
     unsigned int _resX = 0;
     unsigned int _resY = 0;
-    Vec3 _rotation;
-    Vec3 _pos;
+    Vec3 _rotation = Vec3(0.0f, 0.0f, 0.0f);
+    Vec3 _pos = Vec3(0.0f, 0.0f, 0.0f);
     double _fov = 110;
 public:
     Camera();
-    ~Camera();
+    ~Camera() = default;
     void setResX(const unsigned int resX) {_resX = resX;}
     [[nodiscard]] unsigned int getResX() const {return _resX;}
     void setResY(const unsigned int resY) {_resY = resY;}

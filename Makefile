@@ -7,6 +7,8 @@ SRC += src/Scene/Scene.cpp
 SRC += src/Vec/Vec3.cpp
 SRC += src/Factory/ShapeFactory.cpp
 SRC += src/Factory/Factory.cpp
+SRC += src/Vec/Vec2.cpp
+SRC += src/Camera/Camera.cpp
 
 
 SRC_MAIN = src/main.cpp
@@ -22,7 +24,7 @@ NAME = raytracer
 
 INCLUDE = -Isrc -I/usr/local/include
 
-CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++20
+CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++20 -Isrc
 
 CFLAGS_DEBUGS = -fanalyzer -g
 

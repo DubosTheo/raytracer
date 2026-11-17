@@ -8,8 +8,6 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     try {
         raytracer raytracer(argv[1]);
-        if (!raytracer.init())
-            return EXIT_FAILURE;
         raytracer.run();
     } catch (std::out_of_range &e) {
         std::cerr << e.what();

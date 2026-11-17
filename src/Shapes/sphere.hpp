@@ -5,8 +5,8 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include "Ishape.hpp"
-#include "Vec/Vec2.hpp"
-#include "Vec/Vec3.hpp"
+#include "../Vec/Vec2.hpp"
+#include "../Vec/Vec3.hpp"
 
 using namespace libconfig;
 
@@ -20,15 +20,17 @@ private:
     sf::Color _color;
 public:
     explicit sphere(const Setting &s);
+    sf::Color getColor() override {return _color;}
     void setPosition(Vec3 position) {_position = position;}
     bool isIntersect(Ray &ray) override;
-    void setPixel(Vec2 coords, sf::Color color);
+    void setPixel(Vec2, sf::Color) override;
     Vec3 normalize(Vec3 vector);
     float dot(Vec3 vector1, Vec3 vector2);
-    sf::Image getImage() {return _image;}
+    sf::Image getImage() override {return _image;}
     void setSprite(const sf::Texture &texture);
-    sf::Texture &getTexture() {return _texture;}
-    sf::Sprite getSprite() {return _sprite;}
+    sf::Texture getTexture() override {return _texture;}
+    sf::Sprite getSprite() override {return _sprite;}
     void setColor(sf::Color color) {_color = color;}
-    sf::Color getColor() const {return _color;}
+    void setSprite(sf::Texture texture) override;
+    bool setTexture(sf::Image image) override;
 };

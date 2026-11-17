@@ -1,6 +1,7 @@
 #include "sphere.hpp"
 
 #include <cmath>
+#include <iostream>
 #include <SFML/Graphics/Texture.hpp>
 
 #include "Vec/Vec3.hpp"
@@ -15,9 +16,7 @@ sphere::sphere(const Setting &s) : _position(0, 0, 0), _sprite(_texture)
     int r = color["r"];
     int g = color["g"];
     int b = color["b"];
-    _color.r = r;
-    _color.b = b;
-    _color.g = g;
+    _color = sf::Color::Red;
     _image.resize({800, 600});
 }
 
@@ -71,3 +70,14 @@ void sphere::setPixel(Vec2 coords, sf::Color color)
 {
     _image.setPixel({static_cast<unsigned int>(coords.getX()), static_cast<unsigned int>(coords.getY())}, color);
 }
+
+void sphere::setSprite(sf::Texture texture)
+{
+    _sprite.setTexture(texture);
+}
+
+bool sphere::setTexture(sf::Image image)
+{
+    return _texture.loadFromImage(image);
+}
+
