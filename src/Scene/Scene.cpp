@@ -30,6 +30,17 @@ void Scene::readObjects(const Setting &s)
     }
 }
 
+void Scene::readLights(const Setting &s)
+{
+    _ambientLight = s["ambient"];
+    const Setting &l = s["Lights"];
+
+    size_t size = l.getLength();
+    for (size_t i = 0; i < size; i++) {
+
+    }
+}
+
 Scene::Scene(std::string pathFile) : _camera()
 {
     if (pathFile.empty())
@@ -41,5 +52,6 @@ Scene::Scene(std::string pathFile) : _camera()
     const Setting &s = cfg.getRoot();
 
     readCamera(s);
+    readLights(s);
     readObjects(s);
 }

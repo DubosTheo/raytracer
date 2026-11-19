@@ -9,6 +9,7 @@ SRC += src/Factory/ShapeFactory.cpp
 SRC += src/Factory/Factory.cpp
 SRC += src/Vec/Vec2.cpp
 SRC += src/Camera/Camera.cpp
+SRC += src/Render/Render.cpp
 
 
 SRC_MAIN = src/main.cpp

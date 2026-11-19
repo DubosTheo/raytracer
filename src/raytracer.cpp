@@ -27,12 +27,11 @@ void raytracer::run()
     Ray ray;
     ray.setOrigin(_scene.getCamera().getPos());
     sf::RenderWindow window(sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), "Raytracer");
-    sf::Image screenImage;
-    screenImage.resize({static_cast<unsigned int>(width), static_cast<unsigned int>(height)});
+    _scene.getImage().resize({static_cast<unsigned int>(width), static_cast<unsigned int>(height)});
     sf::Texture screenTexture;
     sf::Sprite screenSprite(screenTexture);
     float ar = static_cast<float>(width) / static_cast<float>(height);
-    float fovDegrees = 60.0f;
+    float fovDegrees = _scene.getCamera().getFov();
     float fovRadiant = (fovDegrees * std::numbers::pi / 180.0f);
     float factor = std::tan(fovRadiant / 2.0f);
     while (window.isOpen()) {
@@ -41,17 +40,13 @@ void raytracer::run()
                 window.close();
         }
         if (_calcul == true) {
-            for (unsigned int x = 0; x < width; ++x) {
-                for (unsigned int y = 0; y < height; ++y) {
-                    screenImage.setPixel({x, y}, sf::Color::Black);
+            for (unsigned int x = 0; x < static_cast<unsigned int>(width); ++x) {
+                for (unsigned int y = 0; y < static_cast<unsigned int>(height); ++y) {
+                    _scene.getImage().setPixel({x, y}, sf::Color::Black);
                 }
             }
-
-
             for (int x = 0; x < width; ++x) {
                 for (int y = 0; y < height; ++y) {
-
-                    //set ray
                     float normX = (x + 0.5f) / static_cast<float>(width) * 2.0f - 1.0f;
                     float normY = 1.0f - ((y + 0.5f) / static_cast<float>(height)) * 2.0f;
                     float aspectX = normX * ar;
@@ -62,8 +57,6 @@ void raytracer::run()
                     ray.setDirection(Vec3{finalX, finalY, 1});
                     ray.setDistance(0);
                     float closestT = std::numeric_limits<float>::max();
-
-                    //find closest ray
                     for (const auto &it : objects) {
                         if (it->getShape().isIntersect(ray)) {
                             if (ray.getDistance() < closestT) {
@@ -74,10 +67,10 @@ void raytracer::run()
                         }
                     }
                     if (isHit)
-                        screenImage.setPixel({static_cast<unsigned int>(x), static_cast<unsigned int>(y)}, finalColor);
+                        _scene.getImage().setPixel({static_cast<unsigned int>(x), static_cast<unsigned int>(y)}, finalColor);
                 }
             }
-            if (!screenTexture.loadFromImage(screenImage))
+            if (!screenTexture.loadFromImage(_scene.getImage()))
                 throw std::runtime_error("Can't load screen texture\n");
             screenSprite.setTexture(screenTexture, true);
             _calcul = false;
