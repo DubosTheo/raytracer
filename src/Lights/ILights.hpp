@@ -4,8 +4,8 @@
 #include "../Material/Material.hpp"
 
 class ILights {
-    ILights() = default;
-    ~ILights() = default;
+public:
+    virtual ~ILights() = default;
 
     virtual sf::Color computeLight(Ray &ray, Material material, float closestT) = 0;
 };

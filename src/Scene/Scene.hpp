@@ -8,7 +8,7 @@
 #include "../Camera/Camera.hpp"
 #include "../Factory/Factory.hpp"
 #include "../Object/Object.hpp"
-#include "Lights/ILights.hpp"
+#include "../Lights/ILights.hpp"
 
 using namespace libconfig;
 
