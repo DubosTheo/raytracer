@@ -8,6 +8,7 @@ ShapeFactory::ShapeFactory()
         return std::make_unique<sphere>(s);
     };
 }
+
 std::unique_ptr<IShapes> ShapeFactory::getShape(const std::string &shape, const Setting &s)
 {
     auto it = _shapes.find(shape);

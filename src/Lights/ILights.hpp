@@ -6,6 +6,7 @@
 class ILights {
 public:
     virtual ~ILights() = default;
+    ILights() = default;
 
     virtual sf::Color computeLight(Ray &ray, Material material, float closestT) = 0;
 };

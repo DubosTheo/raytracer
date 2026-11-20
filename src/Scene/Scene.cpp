@@ -33,11 +33,18 @@ void Scene::readObjects(const Setting &s)
 void Scene::readLights(const Setting &s)
 {
     _ambientLight = s["ambient"];
-    const Setting &l = s["Lights"];
+    const Setting &l = s["lights"];
 
     size_t size = l.getLength();
     for (size_t i = 0; i < size; i++) {
-
+        const Setting &it = l[static_cast<int>(i)];
+        std::string type = it["type"];
+        _lights.push_back(_factory.getLight(type, it));
+    }
+    int i = 1;
+    for (const auto& it : _lights) {
+        std::cout << i <<std::endl;
+        i++;
     }
 }
 
