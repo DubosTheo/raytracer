@@ -10,6 +10,7 @@ public:
     [[nodiscard]] inline float getX() const {return _x;}
     [[nodiscard]] inline float getY() const {return _y;}
     [[nodiscard]] inline float getZ() const {return _z;}
+    inline float getLenght(Vec3 vector) {return sqrt(vector.getX() * vector.getX() + vector.getY() * vector.getY() + vector.getZ() * vector.getZ());}
     inline Vec3 normalize(Vec3 vector) {    Vec3 vect(0, 0, 0);
         double lenght = std::sqrt(vector.getX() * vector.getX() + vector.getY() * vector.getY() + vector.getZ() * vector.getZ());
         if (lenght == 0)

@@ -56,15 +56,19 @@ void raytracer::run()
                     sf::Color finalColor = sf::Color::Black;
                     ray.setDirection(Vec3{finalX, finalY, 1});
                     ray.setDistance(0);
+                    ray.setIndex(0);
                     float closestT = std::numeric_limits<float>::max();
+                    size_t index = 0;
                     for (const auto &it : objects) {
                         if (it->getShape().isIntersect(ray)) {
                             if (ray.getDistance() < closestT) {
                                 isHit = true;
                                 closestT = ray.getDistance();
                                 finalColor = it->getShape().getColor();
+                                ray.setIndex(static_cast<int>(index));
                             }
                         }
+                        index++;
                     }
                     if (isHit)
                         _scene.getImage().setPixel({static_cast<unsigned int>(x), static_cast<unsigned int>(y)}, finalColor);

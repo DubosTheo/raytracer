@@ -22,6 +22,8 @@ public:
     sf::Image &getImage() {return _frameBuffer;}
     std::vector<std::unique_ptr<Object>> &getObject() {return _objects;}
     std::vector<std::unique_ptr<ILights>> &getLights() {return _lights;}
+    [[nodiscard]] float getAmbientLight() const {return _ambientLight;}
+    void setAmbientLight(float ambientLight) {_ambientLight = ambientLight;}
 private:
     std::vector<std::unique_ptr<Object>> _objects;
     std::vector<std::unique_ptr<ILights>> _lights;
