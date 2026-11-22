@@ -20,8 +20,8 @@ public:
     void readCamera(const Setting &s);
     [[nodiscard]] Camera getCamera() const {return _camera;}
     sf::Image &getImage() {return _frameBuffer;}
-    std::vector<std::unique_ptr<Object>> getObject() {return std::move(_objects);}
-    std::vector<std::unique_ptr<ILights>> getLights() {return std::move(_lights);}
+    std::vector<std::unique_ptr<Object>> &getObject() {return _objects;}
+    std::vector<std::unique_ptr<ILights>> &getLights() {return _lights;}
 private:
     std::vector<std::unique_ptr<Object>> _objects;
     std::vector<std::unique_ptr<ILights>> _lights;

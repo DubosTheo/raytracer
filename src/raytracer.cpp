@@ -23,7 +23,7 @@ void raytracer::run()
 {
     int width = _scene.getCamera().getResX();
     int height = _scene.getCamera().getResY();
-    std::vector<std::unique_ptr<Object>> objects = _scene.getObject();
+    const auto &objects = _scene.getObject();
     Ray ray;
     ray.setOrigin(_scene.getCamera().getPos());
     sf::RenderWindow window(sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), "Raytracer");

@@ -41,11 +41,6 @@ void Scene::readLights(const Setting &s)
         std::string type = it["type"];
         _lights.push_back(_factory.getLight(type, it));
     }
-    int i = 1;
-    for (const auto& it : _lights) {
-        std::cout << i <<std::endl;
-        i++;
-    }
 }
 
 Scene::Scene(std::string pathFile) : _camera()

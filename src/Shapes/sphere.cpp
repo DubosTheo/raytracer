@@ -6,7 +6,7 @@
 
 #include "Vec/Vec3.hpp"
 
-sphere::sphere(const Setting &s) : _position(0, 0, 0), _sprite(_texture)
+sphere::sphere(const Setting &s)
 {
     _position.setX(s["x"]);
     _position.setY(s["y"]);
@@ -17,33 +17,18 @@ sphere::sphere(const Setting &s) : _position(0, 0, 0), _sprite(_texture)
     int g = color["g"];
     int b = color["b"];
     _color = sf::Color(r, g, b);
-    _image.resize({800, 600});
-}
-
-
-Vec3 sphere::normalize(Vec3 vector)
-{
-    Vec3 vect(0, 0, 0);
-    double lenght = std::sqrt(vector.getX() * vector.getX() + vector.getY() * vector.getY() + vector.getZ() * vector.getZ());
-    if (lenght == 0)
-        return vect;
-    return Vec3(vector.getX() / lenght, vector.getY() / lenght, vector.getZ() / lenght);
-}
-
-float sphere::dot(Vec3 vector1, Vec3 vector2)
-{
-    return vector1.getX() * vector2.getX() + vector1.getY() * vector2.getY() + vector1.getZ() * vector2.getZ();
 }
 
 
 bool sphere::isIntersect(Ray &ray)
 {
-    Vec3 direction = normalize(ray.getDirection());
+    Vec3 direction = {0, 0, 0};
+    direction = direction.normalize(ray.getDirection());
     Vec3 origin = ray.getOrigin();
-    float a = dot(direction, direction);
+    float a = direction.dot(direction, direction);
     Vec3 OrigintoCenter = origin - _position;
-    float b = 2.0f * dot(direction, OrigintoCenter);
-    float c = dot(OrigintoCenter, OrigintoCenter) - (_radius * _radius);
+    float b = 2.0f * direction.dot(direction, OrigintoCenter);
+    float c = direction.dot(OrigintoCenter, OrigintoCenter) - (_radius * _radius);
     float delta = (b * b) - (4.0f * a * c);
     if (delta < 0)
         return false;
@@ -68,24 +53,7 @@ bool sphere::isIntersect(Ray &ray)
     return false;
 }
 
-void sphere::setSprite(const sf::Texture &texture)
+Vec3 sphere::getNormal(Vec3 hitPoint)
 {
-    _sprite.setTexture(texture, true);
+    return hitPoint.normalize(hitPoint - _position);
 }
-
-
-void sphere::setPixel(Vec2 coords, sf::Color color)
-{
-    _image.setPixel({static_cast<unsigned int>(coords.getX()), static_cast<unsigned int>(coords.getY())}, color);
-}
-
-void sphere::setSprite(sf::Texture texture)
-{
-    _sprite.setTexture(texture);
-}
-
-bool sphere::setTexture(sf::Image image)
-{
-    return _texture.loadFromImage(image);
-}
-
