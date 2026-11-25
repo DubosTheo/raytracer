@@ -9,6 +9,7 @@ void Render::renderProperties(Ray &ray, Scene &scene, Material material, float c
 
     Vec3 normal = objects[ray.getIndexObject()]->getShape().getNormal(hitpoint);
     Vec3 shadowOrigin = hitpoint + normal * 0.001f;
+    float Tclosest = ray.getDistance();
 
     float ambiant = scene.getAmbientLight();
 
@@ -18,6 +19,7 @@ void Render::renderProperties(Ray &ray, Scene &scene, Material material, float c
         Vec3 vectLight = itLights->getPosition() - shadowOrigin;
         float distLight = vectLight.getLenght(vectLight);
         Vec3 normLight = vectLight.normalize(vectLight);
+        bool inShadow = false;
         for (const auto &itObj : objects) {
             if (!itObj)
                 continue;
